@@ -3,7 +3,7 @@ import Stripe from "stripe";
 import { env } from "process";
 
 const app = express();
-const port = 1900; //add your port here
+const port = 5000; //add your port here
 const PUBLISHABLE_KEY =
   "pk_test_51Jc9a2SGPn2j9bkhJ8ZFMU1blmCR7DK37Rc6DFOnpjAjiHtR0cyOmSCHFA50Ti3Pd6xhkDmUG9no3yU9er9z3li000fY24X11s";
 const SECRET_KEY =
@@ -14,7 +14,7 @@ const stripe = Stripe(SECRET_KEY, { apiVersion: "2020-08-27" });
 
 app.listen(port, () => {
   console.log(
-    `Example app listening at https://ecommerce-medicine.herokuapp.com:${port}/`
+    `Example app listening at 34.125.172.47:${port}/`
   );
 });
 
