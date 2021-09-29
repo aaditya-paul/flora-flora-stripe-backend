@@ -14,7 +14,7 @@ const stripe = Stripe(SECRET_KEY, { apiVersion: "2020-08-27" });
 
 app.listen(port, () => {
   console.log(
-    `Example app listening at 34.125.172.47:${port}/`
+    `Example app listening at https://34.125.172.47/:${port}/`
   );
 });
 
