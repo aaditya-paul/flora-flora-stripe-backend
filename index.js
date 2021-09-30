@@ -3,26 +3,28 @@ import Stripe from "stripe";
 import { env } from "process";
 
 const app = express();
-const port = 5000; //add your port here
-const PUBLISHABLE_KEY =
-  "pk_test_51Jc9a2SGPn2j9bkhJ8ZFMU1blmCR7DK37Rc6DFOnpjAjiHtR0cyOmSCHFA50Ti3Pd6xhkDmUG9no3yU9er9z3li000fY24X11s";
-const SECRET_KEY =
-  "sk_test_51Jc9a2SGPn2j9bkhgS1F2gXcWnN7vmYUrzj6P5wJY9QpcPFNHiPZh4tdIJ1eJBeHkYJuWE6tWRDjuyzWppQSKYbO00TFC6Mxqg";
+const port = process.env.PORT || 3000; //add your port here
+const PUBLISHABLE_KEY = process.env.PUBLISHABLE_KEY;
+const SECRET_KEY = process.env.SECRET_KEY;
 
 //Confirm the API version from your stripe dashboard
 const stripe = Stripe(SECRET_KEY, { apiVersion: "2020-08-27" });
 
 app.listen(port, () => {
   console.log(
-    `Example app listening at https://34.125.172.47/:${port}/`
+    `Example app listening at ${port}`
   );
 });
 
 app.use(express.json());
+app.use(express.static("public"));
 
-app.post("/create-payment-intent", async function (request, response) {
+app.get("/", (request, response) => {
+  response.send("HELLO DEAR !!");
+});
+
+app.post("/create-payment-intent", async function(request, response) {
   console.log("working !");
-  console.log(process.env);
   const amount = request.body.user.amount;
   const name = request.body.user.name;
   const address = request.body.user.address;
@@ -41,15 +43,15 @@ app.post("/create-payment-intent", async function (request, response) {
         address: {
           line1: address,
           postal_code: pincode,
-          country: "INDIA",
-        },
-      },
+          country: "INDIA"
+        }
+      }
     });
 
     const clientSecret = paymentIntent.client_secret;
 
     response.json({
-      clientSecret: clientSecret,
+      clientSecret: clientSecret
     });
   } catch (e) {
     console.log(e.message);
